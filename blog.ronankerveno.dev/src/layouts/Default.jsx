@@ -4,11 +4,11 @@ import Footer from "../components/Footer";
 export default function DefaultLayout({ children }) {
   return (
     <>
-      <div className="layout">
-        <Header />
-          {children}
-        <Footer />
-      </div>
+      <Header />
+      <main className="w-2/3 mx-auto">
+        {children}
+      </main>
+      <Footer />
     </>
   );
 };
