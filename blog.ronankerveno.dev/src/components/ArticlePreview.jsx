@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/fr';
 
-// Composant ArticlePreview pour afficher un aperçu d'un article avec ses catégories et la possibilité de filtrer les catégories
+// Composant ArticlePreview pour afficher un aperçu d'un article avec ses catégories. Possibilité de filtrer par catégorie
 export default function ArticlePreview({ article, handleTagClick }) {
-  // Formater la date de création de l'article en utilisant la bibliothèque moment.js
+  // On formate la date de création de l'article en utilisant la bibliothèque moment.js
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
   return (
     <div>
-      {/* Créer un lien vers la page détaillée de l'article en utilisant son slug */}
+      {/* On crée un lien vers la page de l'article en utilisant son slug */}
       <Link to={`/article/${article.slug}`}>
-        {/* Afficher l'image en vignette de l'article */}
+        {/* Thumbnail de l'article */}
         <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className='rounded-lg mb-2' />
-        {/* Afficher le titre de l'article */}
+        {/* Titre de l'article */}
         <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
       </Link>
-      {/* Afficher les catégories (tags) de l'article */}
+      {/* Catégories (tags) de l'article */}
       <div className="flex gap-1 mb-2">
         {article.tags && article.tags.map((tag) => (
           <div key={tag.tags_id.id}>
-            {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick lorsqu'il est cliqué */}
+            {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick */}
             <button
               onClick={() => handleTagClick(tag.tags_id.id, true)}
               className="rounded bg-slate-800 p-1.5 text-xs text-white"

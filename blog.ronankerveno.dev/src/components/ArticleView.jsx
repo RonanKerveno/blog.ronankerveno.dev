@@ -5,12 +5,12 @@ import moment from 'moment';
 import 'moment/locale/fr';
 
 export default function ArticleView({ article, onTagClick }) {
-  // Formatez la date de création de l'article avec Moment.js pour qu'elle soit lisible
+  // On formate la date de création de l'article avec Moment.js pour qu'elle soit lisible
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
   return (
     <>
-      {/* Ajoutez un lien vers l'article lui-même avec une image et le titre */}
+      {/* On ajoute un lien vers l'article lui-même avec une image et le titre */}
       <Link to={`/article/${article.slug}`}>
         <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" />
         <h2>{article.title}</h2>

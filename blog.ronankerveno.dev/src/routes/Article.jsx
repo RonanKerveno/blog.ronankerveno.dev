@@ -3,16 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
 import ArticleView from "../components/ArticleView";
 
-// Composant Article pour afficher les détails d'un article
+// Composant Article gérant l'affichage de l'article séléctionné
 export default function Article() {
-  // Utiliser le hook useParams pour récupérer le slug de l'article à partir de l'URL
+  // On se sert du hook useParams pour récupérer le slug de l'article à partir de l'URL
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // Déclarer l'état pour l'article
+  // On déclare l'état (state) pour l'article
   const [article, setArticle] = useState(null);
 
-  // Récupérer l'article correspondant au slug depuis l'API Directus
+  // On recuềre l'article correspondant au slug depuis l'API
   useEffect(() => {
     async function fetchData() {
       const response = await directus.items("articles").readByQuery({
@@ -24,7 +24,7 @@ export default function Article() {
         filter: { "slug": { "_eq": slug } },
       });
 
-      // Si l'article n'est pas trouvé, naviguer vers la page 404
+      // Si l'article n'est pas trouvé, on redirige vers la route 404
       if (response.data.length === 0) {
         navigate('/not-found', { replace: true });
       } else {
@@ -37,15 +37,15 @@ export default function Article() {
 
   return (
     <section>
-      {/* Afficher l'article si celui-ci existe */}
+      {/* On affiche l'article s'il existe en appelant le composant ArticleView */}
       {article && (
         <ArticleView
           key={article.id}
           article={article}
           onTagClick={(tagId) => {
-            // Naviguer vers la page d'accueil avec le tag sélectionné
+            // Au clic sur le tag on charge la page d'accueil avec le filtre du tag sélectionné
             navigate('/', {
-              state: { selectedTagData: { id: tagId } },
+              state: { selectedTagId: tagId },
             });
           }}
         />
