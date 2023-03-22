@@ -10,15 +10,14 @@ export default function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Récupérer les données du tag initial depuis le state de la location, s'il existe.
+  // On cherche un éventuel tag initial depuis le state de la location
   const initialTag = location.state?.selectedTagData;
+  // On récupère les tags initiaux si présents, sinon on charge un tableau vide
+  const initialSelectedTags = initialTag ? [initialTag.id] : [];
 
-  // Initialise selectedTags en fonction de initialTag
-  const initialSelectedTags = initialTag ? [{ id: initialTag.id, name: initialTag.name }] : [];
-
-  // Déclarer les états pour les articles, le tag sélectionné, les catégories et les catégories sélectionnées.
+  // On déclare les états pour les articles, le tag sélectionné, les catégories et les catégories sélectionnées.
   const [articles, setArticles] = useState(null);
-  const selectedTagData = initialTag || { id: null, name: null };
+  const selectedTagData = initialTag ? { id: initialTag.id } : { id: null };
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState(initialSelectedTags);
 
@@ -46,13 +45,14 @@ export default function Home() {
       if (selectedTags.length > 0) {
         const filteredArticles = response.data.filter((article) => {
           return selectedTags.every((tag) =>
-            article.tags.some((articleTag) => articleTag.tags_id.id === tag.id)
+            article.tags.some((articleTag) => articleTag.tags_id.id === tag)
           );
         });
         setArticles(filteredArticles);
       } else {
         setArticles(response.data);
       }
+
     }
 
     fetchData();
@@ -80,17 +80,15 @@ export default function Home() {
   }, [initialTag]);
 
   // Fonction pour gérer le clic sur une catégorie dans le filtre ou dans l'aperçu d'un article
-  function handleTagClick(tagId, tagName, fromPreview = false) {
+  function handleTagClick(tagId, fromPreview = false) {
     // Trouver l'index de la catégorie dans les catégories sélectionnées
-    const tagIndex = selectedTags.findIndex(
-      (tag) => tag.id === tagId
-    );
+    const tagIndex = selectedTags.findIndex((tag) => tag === tagId);
 
     // Si la catégorie correspond à selectedTagData et qu'elle n'est pas déjà dans les catégories sélectionnées, on l'ajoute.
     if (selectedTagData.id === tagId && tagIndex === -1) {
-      setSelectedTags([...selectedTags, { id: tagId, name: tagName }]);
+      setSelectedTags([...selectedTags, tagId]);
     } else if (tagIndex === -1) { // Si la catégorie n'est pas déjà sélectionnée, on l'ajoute
-      setSelectedTags([...selectedTags, { id: tagId, name: tagName }]);
+      setSelectedTags([...selectedTags, tagId]);
     } else if (!fromPreview) { // Si la catégorie est déjà sélectionnée et le clic ne vient pas d'un aperçu d'article, on la retire
       const newselectedTags = [...selectedTags];
       newselectedTags.splice(tagIndex, 1);
@@ -118,7 +116,6 @@ export default function Home() {
               <ArticlePreview
                 key={article.id}
                 article={article}
-                selectedTags={selectedTags}
                 handleTagClick={handleTagClick}
               />
             ))}

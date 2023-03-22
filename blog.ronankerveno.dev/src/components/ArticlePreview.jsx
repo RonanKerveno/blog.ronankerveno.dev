@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/fr';
 
 // Composant ArticlePreview pour afficher un aperçu d'un article avec ses catégories et la possibilité de filtrer les catégories
-export default function ArticlePreview({ article, selectedTags, handleTagClick }) {
+export default function ArticlePreview({ article, handleTagClick }) {
   // Formater la date de création de l'article en utilisant la bibliothèque moment.js
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
@@ -23,7 +23,7 @@ export default function ArticlePreview({ article, selectedTags, handleTagClick }
           <div key={tag.tags_id.id}>
             {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick lorsqu'il est cliqué */}
             <button
-              onClick={() => handleTagClick(tag.tags_id.id, tag.tags_id.name, true)}
+              onClick={() => handleTagClick(tag.tags_id.id, true)}
               className="rounded bg-slate-800 p-1.5 text-xs text-white"
             >
               {tag.tags_id.name}

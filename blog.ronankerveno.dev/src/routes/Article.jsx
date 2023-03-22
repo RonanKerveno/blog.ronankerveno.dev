@@ -42,10 +42,10 @@ export default function Article() {
         <ArticleView
           key={article.id}
           article={article}
-          onTagClick={(tagId, tagName) => {
+          onTagClick={(tagId) => {
             // Naviguer vers la page d'accueil avec le tag sélectionné
             navigate('/', {
-              state: { selectedTagData: { id: tagId, name: tagName } },
+              state: { selectedTagData: { id: tagId } },
             });
           }}
         />

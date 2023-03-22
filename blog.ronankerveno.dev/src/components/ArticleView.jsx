@@ -18,7 +18,7 @@ export default function ArticleView({ article, onTagClick }) {
       {/* Affichez les tags de l'article sous forme de boutons cliquables */}
       {article.tags && article.tags.map((tag) => (
         <div key={tag.tags_id.id}>
-          <button onClick={() => onTagClick && onTagClick(tag.tags_id.id, tag.tags_id.name)}>
+          <button onClick={() => onTagClick && onTagClick(tag.tags_id.id)}>
             {tag.tags_id.name}
           </button>
         </div>
