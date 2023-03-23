@@ -34,7 +34,7 @@ export default function ArticlePreview({ article, handleTagClick }) {
       {/* Afficher l'extrait de l'article */}
       <p className="text-slate-600 text-sm my-2">{article.excerpt}</p>
       {/* Afficher la date de création de l'article */}
-      <p className="text-sm">{createdDate}</p>
+      <p className="text-xs font-semibold">{createdDate}</p>
     </div>
   );
 }
