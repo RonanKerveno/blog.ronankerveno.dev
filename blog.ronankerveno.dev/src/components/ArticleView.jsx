@@ -1,5 +1,4 @@
 import config from '../config';
-import { Link } from 'react-router-dom';
 import Markdown from './Markdown';
 import moment from 'moment';
 import 'moment/locale/fr';
@@ -9,12 +8,9 @@ export default function ArticleView({ article, onTagClick }) {
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
   return (
-    <>
-      {/* On ajoute un lien vers l'article lui-même avec une image et le titre */}
-      <Link to={`/article/${article.slug}`}>
-        <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" />
-        <h2>{article.title}</h2>
-      </Link>
+    <article>
+      <h1 className="font-bold text-2xl mb-5">{article.title}</h1>
+      <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" />
       {/* Affichez les tags de l'article sous forme de boutons cliquables */}
       {article.tags && article.tags.map((tag) => (
         <div key={tag.tags_id.id}>
@@ -27,6 +23,6 @@ export default function ArticleView({ article, onTagClick }) {
       <p>{createdDate}</p>
       {/* Affichez le contenu de l'article avec le composant Markdown */}
       <Markdown markdown={{ content: article.content }} />
-    </>
+    </article>
   );
 }

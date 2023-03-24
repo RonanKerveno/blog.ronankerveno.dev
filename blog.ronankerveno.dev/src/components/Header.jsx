@@ -48,7 +48,7 @@ export default function Header() {
       <nav className="w-2/3 mx-auto flex justify-between items-center">
         <div className='flex items-center gap-3'>
           <a href="/">
-            <img src={logo} alt="Logo" className="h-16 w-auto m-2" />
+            <img src={logo} alt="Logo" className="h-16 w-auto my-2 mr-2" />
           </a>
           <div className="ml-2 font-bold text-xl">Web Dev & Linux</div>
         </div>

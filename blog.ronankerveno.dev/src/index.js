@@ -9,6 +9,7 @@ import Article from "./routes/Article";
 import NotFound from "./routes/NotFound";
 import Search from "./routes/Search";
 import ContactForm from "./routes/Contact";
+import PrivacyPolicy from "./routes/privacyPolicy";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +21,7 @@ root.render(
           <Route path="/article/:slug" element={<Article />} />
           <Route path="/search/:query" element={<Search />} />
           <Route path="/contact" element={<ContactForm />} />
+          <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </DefaultLayout>

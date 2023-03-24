@@ -105,7 +105,7 @@ export default function Home() {
     <>
       {/* Composant pour afficher la bannière d'introduction */}
       <IntroBanner />
-      <section className="mb-10">
+      <section>
         <div className="flex justify-center items-center py-4">
           <div className="border-b border-gray-400 flex-grow mr-4"></div>
           <h1 className="font-bold text-xl">Liste des articles</h1>
