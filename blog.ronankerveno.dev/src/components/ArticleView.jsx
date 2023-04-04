@@ -26,7 +26,7 @@ export default function ArticleView({ article, onTagClick }) {
         {article.tags && article.tags.map((tag) => (
           <div key={tag.tags_id.id}>
             <button onClick={() => onTagClick && onTagClick(tag.tags_id.id)}
-              className="rounded bg-slate-800 p-1.5 text-xs text-white"
+              className="rounded bg-black lg:hover:bg-slate-600 p-1.5 text-xs text-white"
             >
               {tag.tags_id.name}
             </button>
@@ -34,7 +34,10 @@ export default function ArticleView({ article, onTagClick }) {
         ))}
       </div>
       {/* Affichez le contenu de l'article avec le composant Markdown */}
-      <Markdown markdown={{ content: article.content }} />
+      <Markdown
+        markdown={{ content: article.content }}
+        className="max-w-none prose prose-pre:p-0 prose-pre:bg-[#111B27]"
+      />
     </article>
   );
 }

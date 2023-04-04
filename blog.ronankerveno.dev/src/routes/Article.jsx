@@ -14,6 +14,10 @@ export default function Article() {
   // On déclare l'état (state) pour l'article, les derniers articles et les tags
   const [article, setArticle] = useState(null);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [article]); 
+
   // On récupère l'article correspondant au slug depuis l'API
   useEffect(() => {
     async function fetchData() {
@@ -38,8 +42,8 @@ export default function Article() {
   }, [navigate, slug]);
 
   return (
-    <div className="flex justify-center gap-16">
-      <section className="w-3/5 p-4">
+    <div className="flex flex-col lg:flex-row lg:justify-center gap-16">
+      <section className="px-0 lg:w-2/3 xl:px-9 py-4">
         {article && (
           <ArticleView
             key={article.id}

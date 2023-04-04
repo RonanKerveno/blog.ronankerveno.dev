@@ -15,7 +15,7 @@ export default function ArticlePreview({ article, handleTagClick }) {
         {/* Thumbnail de l'article */}
         <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className='rounded-lg mb-2' />
         {/* Titre de l'article */}
-        <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+        <h2 className="text-xl font-semibold mb-2 hover:text-slate-600">{article.title}</h2>
       </Link>
       {/* Catégories (tags) de l'article */}
       <div className="flex gap-1 mb-2">
@@ -24,7 +24,7 @@ export default function ArticlePreview({ article, handleTagClick }) {
             {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick */}
             <button
               onClick={() => handleTagClick(tag.tags_id.id, true)}
-              className="rounded bg-slate-800 p-1.5 text-xs text-white"
+              className="rounded bg-slate-800 hover:bg-slate-600 p-1.5 text-xs text-white"
             >
               {tag.tags_id.name}
             </button>

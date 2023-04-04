@@ -39,23 +39,22 @@ export default function Aside() {
   }, []);
 
   return (
-    <aside className="w-1/5 p-2">
+    <aside className="lg:w-1/5">
       <section className="mb-10 mt-2 bg-slate-100 p-2 rounded-lg">
         <div className="flex gap-4 mb-2 border-b-2 pb-2">
           <img src={authorPic} alt="RK" className="h-16 rounded-xl" />
-          <div className="text-sm">
-            <p className='font-medium mb-1'>Ronan Kerveno</p>
-            <p className="text-xs">Neo Web dev et Linuxien convaincu</p>
+          <div className="lg:text-sm">
+            <p className="font-medium mb-1">Ronan Kerveno</p>
+            <p className="text-sm lg:text-xs">Neo Web dev et Linuxien convaincu</p>
           </div>
         </div>
-        <div className="flex justify-between gap-2">
-          <div className="text-xs">
+        <div className="flex justify-between pr-7 lg:pr-0 p-1 lg-p-0">
+          <div className="lg:text-xs">
             <a
               href="https://ronankerveno.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-slate-500"
-              title="Mon site web"
+              className="lg:hover:text-slate-500 underline underline-offset-2 lg:no-underline"
             >
               ronankerveno.dev
             </a>
@@ -64,8 +63,7 @@ export default function Aside() {
             href="https://github.com/RonanKerveno"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-slate-500"
-            title="Mon GitHub"
+            className="lg:hover:text-slate-500 text-2xl lg:text-base"
           >
             <FaGithub />
           </a>
@@ -73,18 +71,17 @@ export default function Aside() {
             href="https://www.linkedin.com/in/ronankerveno"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-slate-500"
-            title="Mon LinkedIn"
+            className="lg:hover:text-slate-500 text-2xl lg:text-base"
           >
             <FaLinkedin />
           </a>
-          <Link to="/contact" className="hover:text-slate-500">
-            <SiMinutemailer title="Formulaire de contact" />
+          <Link to="/contact" className="lg:hover:text-slate-500 text-2xl lg:text-base">
+            <SiMinutemailer />
           </Link>
         </div>
       </section>
       <section className="mb-10">
-        <h2 className="text-lg font-semibold mb-4">Derniers articles</h2>
+        <h2 className="text-xl lg:text-lg font-semibold mb-4">Derniers articles</h2>
         {latestArticles &&
           latestArticles.map((latestArticle) => (
             <div key={latestArticle.id} className="mb-2">
@@ -94,13 +91,11 @@ export default function Aside() {
                 <img
                   src={`${config.ASSETS_URL}/${latestArticle.thumbnail}`}
                   alt="Description"
-                  className='rounded-lg mb-2 w-1/2 h-auto transform transition-transform duration-300 hover:scale-105'
-                  title="Voir l'article"
+                  className='rounded-lg mb-2 w-1/2 h-auto transform transition-transform duration-300 lg:hover:scale-105'
                 />
                 {/* Titre de l'article */}
                 <div
-                  className="mb-2 text-sm text-slate-800 font-medium"
-                  title="Voir l'article"
+                  className="mb-2 py-4 lg:py-0 lg:text-sm text-slate-800 font-medium lg:hover:text-slate-500"
                 >
                   {latestArticle.title}
                 </div>
@@ -109,19 +104,19 @@ export default function Aside() {
           ))}
       </section>
       <section>
-        <h2 className="text-lg font-semibold mb-4">Catégories</h2>
+        <h2 className="text-xl lg:text-lg font-semibold mb-4">Tous les tags</h2>
         {tags &&
           tags.map((tag) => (
-            <div key={tag.id} className="mb-2">
+            <div key={tag.id} className="mb-4 lg:mb-2">
               <button
                 onClick={() => {
                   navigate('/', {
                     state: { selectedTagId: tag.id },
                   });
                 }}
-                className="flex gap-2 items-center text-slate-900 font-medium"
+                className="flex gap-2 items-center text-slate-900 lg:hover:text-slate-500 lg:font-medium"
               >
-                <FaTag className="text-sm" /> {tag.name}
+                <FaTag className="text-xl lg:text-sm" /> {tag.name}
               </button>
             </div>
           ))}

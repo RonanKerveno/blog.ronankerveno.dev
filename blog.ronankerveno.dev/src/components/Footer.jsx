@@ -7,14 +7,14 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-900 text-white text-sm py-4">
-      <div className="w-2/3 mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <div className="mb-4 sm:mb-0">
+      <div className="w-[94%] xl:w-[1230px] mx-auto flex flex-col gap-7 md:flex-row justify-between items-center">
+        <div>
           Propulsé par{' '}
           <a
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-semibold"
+            className="text-white lg:hover:text-slate-300 font-semibold"
           >
             React
           </a>
@@ -26,7 +26,7 @@ export default function Footer() {
             href="https://directus.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-semibold"
+            className="text-white lg:hover:text-slate-300 font-semibold"
           >
             Directus
           </a>
@@ -34,14 +34,14 @@ export default function Footer() {
             <img src={logoDirectus} alt="Logo Directus" className="h-7 w-auto inline" />
           </a>
         </div>
-        <div className="mb-4 sm:mb-0">
-          <Link to="/politique-confidentialite" className="text-white underline">
+        <div>
+          <Link to="/politique-confidentialite" className="text-white underline lg:hover:text-slate-300">
             Politique de confidentialité
           </Link>
         </div>
         <div>
           &copy; {currentYear} <a 
-            href="https://ronankerveno.dev" target="_blank" rel="noopener noreferrer" className="font-semibold">
+            href="https://ronankerveno.dev" target="_blank" rel="noopener noreferrer" className="font-semibold lg:hover:text-slate-300">
             Ronan Kerveno
           </a>
         </div>

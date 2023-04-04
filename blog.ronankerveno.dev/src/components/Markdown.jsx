@@ -1,4 +1,4 @@
-// Markdown.js
+// Markdown.js : formatage du markdown en html
 import ReactMarkdown from 'react-markdown';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import markup from 'react-syntax-highlighter/dist/cjs/languages/prism/markup';
@@ -11,9 +11,11 @@ import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
 import rangeParser from 'parse-numeric-range';
-import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import copy from 'clipboard-copy';
+import { FiCopy } from 'react-icons/fi';
 
+// Définitions des langages pris en charge par SyntaxHighlighter.
 SyntaxHighlighter.registerLanguage('markup', markup);
 SyntaxHighlighter.registerLanguage('css', css);
 SyntaxHighlighter.registerLanguage('javascript', js);
@@ -24,18 +26,24 @@ SyntaxHighlighter.registerLanguage('bash', bash);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 SyntaxHighlighter.registerLanguage('json', json);
 
-const Markdown = ({ markdown }) => {
-  const syntaxTheme = oneDark;
+// Composant Markdown pour afficher le contenu formaté
+const Markdown = ({ markdown, className }) => {
+  const syntaxTheme = coldarkDark;
 
+   // Copier le code dans le presse-papiers
   function handleCopyClick(code) {
     copy(code);
   }
 
+  // Composants personnalisés pour ReactMarkdown
   const MarkdownComponents = {
     code({ node, inline, className, ...props }) {
+      // On vérifie si le bloc de code a un langage défini
       const hasLang = /language-(\w+)/.exec(className || '');
+      // On vérifie si le bloc de code a des métadonnées (pour les lignes surlignées)
       const hasMeta = node?.data?.meta;
 
+      // Fonction pour appliquer le surlignage du code
       const applyHighlights = (applyHighlights) => {
         if (hasMeta) {
           const RE = /{([\d,-]+)}/;
@@ -54,13 +62,15 @@ const Markdown = ({ markdown }) => {
         }
       };
 
+      // Rendu conditionnel du composant en fonction de la présence d'un langage défini
       return hasLang ? (
         <div style={{ position: 'relative' }}>
           <SyntaxHighlighter
             style={syntaxTheme}
+            customStyle={{ margin: 0, padding: '1.2rem' }}
             language={hasLang[1]}
             PreTag="div"
-            className="codeStyle"
+            className="codeStyle "
             showLineNumbers={false}
             wrapLines={hasMeta}
             useInlineStyles={true}
@@ -69,14 +79,11 @@ const Markdown = ({ markdown }) => {
             {props.children}
           </SyntaxHighlighter>
           <button
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-            }}
+            className="text-[0.7rem] bg-[#111B27] hover:text-slate-300 text-white px-2 py-[0.1rem] rounded absolute top-1 right-0"
             onClick={() => handleCopyClick(props.children)}
+            title="Copier le code"
           >
-            Copier le code
+            <FiCopy />
           </button>
         </div>
       ) : (
@@ -85,10 +92,13 @@ const Markdown = ({ markdown }) => {
     },
   };
 
+  // Rendu du composant Markdown avec les composants personnalisés
   return (
-    <ReactMarkdown components={MarkdownComponents}>
-      {markdown.content}
-    </ReactMarkdown>
+    <div className={className}>
+      <ReactMarkdown components={MarkdownComponents}>
+        {markdown.content}
+      </ReactMarkdown>
+    </div>
   );
 };
 

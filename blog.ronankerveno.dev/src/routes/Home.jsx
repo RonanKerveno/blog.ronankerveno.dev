@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import ArticlePreview from "../components/ArticlePreview";
@@ -20,6 +20,12 @@ export default function Home() {
   const [articles, setArticles] = useState(null);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState(initialSelectedTags);
+  const tagNb = selectedTags.length;
+  // On déclare l'état pour déclencher le scroll
+  const [scrollToArticleList, setscrollToArticleList] = useState(false);
+
+  // On crée une référence pour la barre de filtre
+  const articleListRef = useRef(null);
 
   // On récupère les articles avec le filtre des tags sélectionnés et le tri par date de création décroissante
   useEffect(() => {
@@ -81,9 +87,12 @@ export default function Home() {
 
   // On gère le clic sur une catégorie dans le filtre ou dans l'aperçu d'un article
   function handleTagClick(tagId, fromPreview = false) {
+    console.log(tagId);
     if (fromPreview) {
       // Si le clic vient d'un aperçu d'article on remplace les tags sélectionnés par le tag cliqué
       setSelectedTags([tagId]);
+      // Et on lance le scroll
+      setscrollToArticleList(true);
     } else {
       // On cherche l'index de la catégorie dans les catégories sélectionnées
       const tagIndex = selectedTags.findIndex((tag) => tag === tagId);
@@ -99,6 +108,14 @@ export default function Home() {
     }
   }
 
+  // On scroll vers la barre de filtrage quand un filtre est activé ou quand on clique sur un tag à partir d'un ArticlePreview
+  useEffect(() => {
+    if (articleListRef.current && scrollToArticleList) {
+      articleListRef.current.scrollIntoView({ behavior: "smooth" });
+      setscrollToArticleList(false);
+    }
+  }, [scrollToArticleList]);
+
 
   // Rendu de Home
   return (
@@ -106,9 +123,9 @@ export default function Home() {
       {/* Composant pour afficher la bannière d'introduction */}
       <IntroBanner />
       <section>
-        <div className="flex justify-center items-center py-4">
+        <div ref={articleListRef} className="flex justify-center items-center py-4">
           <div className="border-b border-gray-400 flex-grow mr-4"></div>
-          <h1 className="font-bold text-xl">Liste des articles</h1>
+          <h1 className="font-bold text-2xl">Liste des articles</h1>
           <div className="border-b border-gray-400 flex-grow ml-4"></div>
         </div>
         {/* Composant pour afficher le filtre de catégorie et les catégories sélectionnées */}
@@ -117,8 +134,24 @@ export default function Home() {
           selectedTags={selectedTags}
           onTagClick={handleTagClick}
         />
+        <div
+          className={`text-center mb-4 transition-all duration-300 ease-in-out ${tagNb > 0 ? 'opacity-100 max-h-[5rem] pb-2' : 'opacity-0 max-h-0 py-0'
+            } overflow-hidden`}
+        >
+          <div className="font-medium">
+            {tagNb === 0 ? (
+              "Filtre désactivé"
+            ) : (
+              <>
+                Filtre actif sur{' '}
+                <span className="font-bold">{tagNb}</span>{' '}
+                {tagNb === 1 ? 'tag' : 'tags'}
+              </>
+            )}
+          </div>
+        </div>
         {/* Affichage des aperçus des articles */}
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles &&
             articles.map((article) => (
               // Composant pour afficher un aperçu d'article avec les catégories sélectionnées et la fonction handleTagClick
