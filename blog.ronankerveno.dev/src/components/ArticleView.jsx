@@ -23,15 +23,19 @@ export default function ArticleView({ article, onTagClick }) {
       <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className="mb-2" />
       {/* Affichez les tags de l'article sous forme de boutons cliquables */}
       <div className="flex gap-1 mb-7">
-        {article.tags && article.tags.map((tag) => (
-          <div key={tag.tags_id.id}>
-            <button onClick={() => onTagClick && onTagClick(tag.tags_id.id)}
-              className="rounded bg-black lg:hover:bg-slate-600 p-1.5 text-xs text-white"
-            >
-              {tag.tags_id.name}
-            </button>
-          </div>
-        ))}
+        {article.tags &&
+          article.tags
+            .sort((a, b) => a.tags_id.name.localeCompare(b.tags_id.name))
+            .map((tag) => (
+              <div key={tag.tags_id.id}>
+                <button
+                  onClick={() => onTagClick && onTagClick(tag.tags_id.id)}
+                  className="rounded bg-black hover:bg-slate-600 p-1.5 text-xs text-white"
+                >
+                  {tag.tags_id.name}
+                </button>
+              </div>
+            ))}
       </div>
       {/* Affichez le contenu de l'article avec le composant Markdown */}
       <Markdown

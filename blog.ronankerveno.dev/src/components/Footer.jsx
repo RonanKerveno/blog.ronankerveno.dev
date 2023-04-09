@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { scrollToTop } from "../utils/ScrollToTop"
 import logoReact from "../assets/react-logo.svg";
 import logoDirectus from "../assets/directus-logo.svg";
 
@@ -14,7 +15,7 @@ export default function Footer() {
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white lg:hover:text-slate-300 font-semibold"
+            className="text-white hover:text-slate-300 font-semibold"
           >
             React
           </a>
@@ -26,7 +27,7 @@ export default function Footer() {
             href="https://directus.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white lg:hover:text-slate-300 font-semibold"
+            className="text-white hover:text-slate-300 font-semibold"
           >
             Directus
           </a>
@@ -35,13 +36,17 @@ export default function Footer() {
           </a>
         </div>
         <div>
-          <Link to="/politique-confidentialite" className="text-white underline lg:hover:text-slate-300">
+          <Link
+            to="/politique-confidentialite"
+            className="text-white underline hover:text-slate-300"
+            onClick={scrollToTop}
+          >
             Politique de confidentialité
           </Link>
         </div>
         <div>
-          &copy; {currentYear} <a 
-            href="https://ronankerveno.dev" target="_blank" rel="noopener noreferrer" className="font-semibold lg:hover:text-slate-300">
+          &copy; {currentYear} <a
+            href="https://ronankerveno.dev" target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-slate-300">
             Ronan Kerveno
           </a>
         </div>

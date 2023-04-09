@@ -51,66 +51,64 @@ export default function ContactForm() {
   };
 
   return (
-    <>
-      <form ref={form} onSubmit={sendEmail} className="bg-slate-300 text-slate-700 p-8 rounded-md">
-        {formStatus === 'success' && (
-          <div className="bg-green-500 p-4 rounded-md mb-4">
-            Votre message a été envoyé avec succès.
-          </div>
-        )}
-        {formStatus === 'error' && (
-          <div className="bg-red-500 p-4 rounded-md mb-4">
-            Une erreur est survenue lors de l'envoi de votre message.
-          </div>
-        )}
-        <div className="mb-4">
-          <label htmlFor="user_name" className="block mb-2">Nom (obligatoire)</label>
-          <input type="text" name="user_name" id="user_name" required className="w-full p-2 bg-white text-black rounded-md" />
+    <form ref={form} onSubmit={sendEmail} className="bg-slate-300 text-slate-700 p-6 lg:p-8 rounded-md">
+      {formStatus === 'success' && (
+        <div className="bg-green-500 p-4 rounded-md mb-4">
+          Votre message a été envoyé avec succès.
         </div>
-        <div className="mb-4">
-          <label htmlFor="user_email" className="block mb-2">Email (obligatoire)</label>
+      )}
+      {formStatus === 'error' && (
+        <div className="bg-red-500 p-4 rounded-md mb-4">
+          Une erreur est survenue lors de l'envoi de votre message.
+        </div>
+      )}
+      <div className="mb-4">
+        <label htmlFor="user_name" className="block mb-2">Nom (obligatoire)</label>
+        <input type="text" name="user_name" id="user_name" required className="w-full p-2 bg-white text-black rounded-md" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="user_email" className="block mb-2">Email (obligatoire)</label>
+        <input
+          type="email"
+          name="user_email"
+          id="user_email"
+          required
+          className={`w-full p-2 bg-white text-black rounded-md ${emailError ? 'border border-red-500' : ''}`}
+          onChange={handleEmailChange}
+        />
+        {emailError && <div className="text-red-500 text-sm">Veuillez saisir un email valide.</div>}
+      </div>
+      <div className="mb-4">
+        <label htmlFor="message" className="block mb-2">Message (obligatoire)</label>
+        <textarea name="message" id="message" rows="4" required className="w-full p-2 bg-white text-black rounded-md" />
+      </div>
+      <div className="mb-4">
+        <label className="inline-flex items-center">
           <input
-            type="email"
-            name="user_email"
-            id="user_email"
-            required
-            className={`w-full p-2 bg-white text-black rounded-md ${emailError ? 'border border-red-500' : ''}`}
-            onChange={handleEmailChange}
+            type="checkbox"
+            className="form-checkbox text-slate-900"
+            checked={privacyPolicyChecked}
+            onChange={() => setPrivacyPolicyChecked(!privacyPolicyChecked)}
           />
-          {emailError && <div className="text-red-500 text-sm">Veuillez saisir un email valide.</div>}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block mb-2">Message (obligatoire)</label>
-          <textarea name="message" id="message" rows="4" required className="w-full p-2 bg-white text-black rounded-md" />
-        </div>
-        <div className="mb-4">
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              className="form-checkbox text-slate-900"
-              checked={privacyPolicyChecked}
-              onChange={() => setPrivacyPolicyChecked(!privacyPolicyChecked)}
-            />
-            <span className="ml-2">
-              J'ai lu et accepté la{' '}
-              <Link to="/politique-confidentialite" className="text-slate-900 underline">
-                politique de confidentialité
-              </Link>
-            </span>
-          </label>
-        </div>
-        <div className="text-right">
-          <input
-            type="submit"
-            value="Envoi"
-            className={`py-1 px-4 rounded-md cursor-pointer transition ease-in-out duration-150 ${!submitDisabled && privacyPolicyChecked ? 'bg-white text-slate-900 hover:bg-slate-300 hover:text-white active:bg-slate-700' : 'bg-slate-300 text-slate-600 cursor-not-allowed'}`}
-            disabled={!privacyPolicyChecked || submitDisabled}
-          />
+          <span className="ml-2">
+            J'ai lu et accepté la{' '}
+            <Link to="/politique-confidentialite" className="text-slate-900 underline">
+              politique de confidentialité
+            </Link>
+          </span>
+        </label>
+      </div>
+      <div className="text-right">
+        <input
+          type="submit"
+          value="Envoi"
+          className={`py-1 px-4 rounded-md cursor-pointer transition ease-in-out duration-150 ${!submitDisabled && privacyPolicyChecked ? 'bg-white text-slate-900 hover:bg-slate-100 hover:text-slate-800 active:bg-slate-700' : 'bg-slate-300 text-slate-600 cursor-not-allowed'}`}
+          disabled={!privacyPolicyChecked || submitDisabled}
+        />
 
-        </div>
+      </div>
 
-      </form>
-    </>
+    </form>
   );
 
 };

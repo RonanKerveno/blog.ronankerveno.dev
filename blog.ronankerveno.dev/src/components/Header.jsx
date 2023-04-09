@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { scrollToTop } from "../utils/ScrollToTop"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Hamburger from 'hamburger-react'
 import logo from "../assets/logo.svg";
@@ -21,7 +22,7 @@ export default function Header() {
     if (searchQuery.trim()) {
       // On redirige vers la page de recherche avec la valeur encodée dans l'URL
       navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
-      // On masque le champ de recherche et on ferme le menu déorulant.
+      // On masque le champ de recherche et on ferme le menu déroulant.
       setSearchVisible(false);
       setMenuOpen(false);
     }
@@ -32,20 +33,28 @@ export default function Header() {
     setSearchQuery(e.target.value);
   };
 
+  const handleNavClick = () => {
+    setSearchQuery('');
+    setSearchVisible(false);
+    setMenuOpen(false);
+    scrollToTop();
+  };
+
   // Rendu du header
   return (
     <header className="bg-slate-900 text-white mb-8">
       <div className="w-[94%] xl:w-[1230px] mx-auto">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4 md:gap-5">
-            <a href="/">
-              <img
-                src={logo}
-                alt="Logo"
-                className="h-16 w-auto my-2 mr-2 lg:transform lg:transition-transform lg:duration-300 lg:hover:scale-110 lg:hover:rotate-3"
-              />
-            </a>
-
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 w-auto my-2 mr-2 lg:transform lg:transition-transform lg:duration-300 hover:scale-110 hover:rotate-3 cursor-pointer"
+              onClick={() => {
+                handleNavClick();
+                navigate('/', { state: { fromHome: true }, });
+              }}
+            />
             <div className="hidden min-[330px]:block w-2/5 sm:w-auto font-bold text-xl">Web Dev & Linux</div>
           </div>
           {/* Menu déroulant pour les liens de navigation sur les petits écrans */}
@@ -60,7 +69,13 @@ export default function Header() {
           </div>
           <div className="hidden lg:block relative">
             <div className="hidden lg:flex text-lg gap-4 items-center">
-              <a href="/contact" className="hover:text-slate-300">Contact</a>
+              <Link
+                to="/contact"
+                className="hover:text-slate-300"
+                onClick={handleNavClick}
+              >
+                Contact
+              </Link>
               <button onClick={() => { setSearchVisible(!searchVisible); setMenuOpen(!menuOpen); }}>
                 <MagnifyingGlassIcon className="h-5 w-5 hover:text-slate-300" />
               </button>
@@ -72,9 +87,13 @@ export default function Header() {
           className={`transition-all duration-300 ease-in-out ${menuOpen ? "h-auto py-3" : "h-0 py-0"
             } lg:hidden overflow-hidden`}
         >
-          <a href="/contact" className="lg:hover:text-slate-300 ml-1">
+          <Link
+            to="/contact"
+            className="ml-1"
+            onClick={handleNavClick}
+          >
             Contact
-          </a>
+          </Link>
         </nav>
         {/* Champ de recherche, masqué par défaut */}
         <form
@@ -91,7 +110,7 @@ export default function Header() {
           />
           <button
             type="submit"
-            className="bg-slate-500 lg:hover:bg-slate-400 text-white py-1 px-2 rounded-md text-sm ml-2"
+            className="bg-slate-500 hover:bg-slate-400 text-white py-1 px-2 rounded-md text-sm ml-2"
           >
             OK
           </button>

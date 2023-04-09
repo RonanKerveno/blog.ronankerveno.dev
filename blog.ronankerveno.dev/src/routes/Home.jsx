@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
+import { useFetchTags } from "../hooks/useFetchTags";
 import ArticlePreview from "../components/ArticlePreview";
 import IntroBanner from "../components/IntroBanner";
 import TagFilter from "../components/TagFilter";
@@ -18,14 +19,29 @@ export default function Home() {
 
   // On déclare les états pour les articles, les catégories et les catégories sélectionnées
   const [articles, setArticles] = useState(null);
-  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState(initialSelectedTags);
   const tagNb = selectedTags.length;
+  // On utilise un hook personnalisé pour récupérer les tags
+  const tags = useFetchTags();
   // On déclare l'état pour déclencher le scroll
   const [scrollToArticleList, setscrollToArticleList] = useState(false);
 
   // On crée une référence pour la barre de filtre
   const articleListRef = useRef(null);
+
+  // On scrolle vers la barre de filtrage quand un filtre est activé ou quand on clique sur un tag à partir d'un ArticlePreview
+  useEffect(() => {
+    if (articleListRef.current && scrollToArticleList) {
+      // On ajoute un setTimeout pour que le rendu des nouveaux articles se fasse avant le scroll
+      const timer = setTimeout(() => {
+        articleListRef.current.scrollIntoView({ behavior: "smooth" });
+        setscrollToArticleList(false);
+      }, 100);
+
+      // Cleanup du timer
+      return () => clearTimeout(timer);
+    }
+  }, [scrollToArticleList]);
 
   // On récupère les articles avec le filtre des tags sélectionnés et le tri par date de création décroissante
   useEffect(() => {
@@ -72,22 +88,17 @@ export default function Home() {
     }
   }, [location.state?.selectedTagId, navigate]);
 
-  // On recupère les catégories depuis l'API
+  // On réinitialise les filtres lorsque la page est appelée depuis le lien interne.
   useEffect(() => {
-    async function fetchTags() {
-      const query = {
-        fields: ['*', 'tags_id.*'],
-      };
-      const response = await directus.items('tags').readByQuery(query);
-      setTags(response.data);
+    if (location.state?.fromHome) {
+      setSelectedTags([]);
+      navigate('/', { state: { fromHome: false }, replace: true });
     }
+  }, [location.state?.fromHome, navigate]);
 
-    fetchTags();
-  }, []);
 
   // On gère le clic sur une catégorie dans le filtre ou dans l'aperçu d'un article
   function handleTagClick(tagId, fromPreview = false) {
-    console.log(tagId);
     if (fromPreview) {
       // Si le clic vient d'un aperçu d'article on remplace les tags sélectionnés par le tag cliqué
       setSelectedTags([tagId]);
@@ -107,15 +118,6 @@ export default function Home() {
       }
     }
   }
-
-  // On scroll vers la barre de filtrage quand un filtre est activé ou quand on clique sur un tag à partir d'un ArticlePreview
-  useEffect(() => {
-    if (articleListRef.current && scrollToArticleList) {
-      articleListRef.current.scrollIntoView({ behavior: "smooth" });
-      setscrollToArticleList(false);
-    }
-  }, [scrollToArticleList]);
-
 
   // Rendu de Home
   return (

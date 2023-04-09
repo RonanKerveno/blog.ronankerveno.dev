@@ -78,8 +78,9 @@ const Markdown = ({ markdown, className }) => {
           >
             {props.children}
           </SyntaxHighlighter>
+          {/* Bouton pour copier le code */}
           <button
-            className="text-[0.7rem] bg-[#111B27] hover:text-slate-300 text-white px-2 py-[0.1rem] rounded absolute top-1 right-0"
+            className="hidden lg:block text-[0.7rem] bg-[#111B27] hover:text-slate-300 text-white px-2 py-[0.1rem] rounded lg:absolute top-1 right-0"
             onClick={() => handleCopyClick(props.children)}
             title="Copier le code"
           >

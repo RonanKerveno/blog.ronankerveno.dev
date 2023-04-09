@@ -8,10 +8,18 @@ export default function ArticlePreview({ article, handleTagClick }) {
   // On formate la date de création de l'article en utilisant la bibliothèque moment.js
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
+  // On réinitialise le scroll verticalement quand une page est appelée par un lien.
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div>
       {/* On crée un lien vers la page de l'article en utilisant son slug */}
-      <Link to={`/article/${article.slug}`}>
+      <Link
+        to={`/article/${article.slug}`}
+        onClick={handleScrollToTop}
+      >
         {/* Thumbnail de l'article */}
         <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className='rounded-lg mb-2' />
         {/* Titre de l'article */}
@@ -19,17 +27,20 @@ export default function ArticlePreview({ article, handleTagClick }) {
       </Link>
       {/* Catégories (tags) de l'article */}
       <div className="flex gap-1 mb-2">
-        {article.tags && article.tags.map((tag) => (
-          <div key={tag.tags_id.id}>
-            {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick */}
-            <button
-              onClick={() => handleTagClick(tag.tags_id.id, true)}
-              className="rounded bg-slate-800 hover:bg-slate-600 p-1.5 text-xs text-white"
-            >
-              {tag.tags_id.name}
-            </button>
-          </div>
-        ))}
+        {article.tags &&
+          article.tags
+            .sort((a, b) => a.tags_id.name.localeCompare(b.tags_id.name))
+            .map((tag) => (
+              <div key={tag.tags_id.id}>
+                {/* Bouton pour chaque catégorie, qui déclenche la fonction handleCategoryClick */}
+                <button
+                  onClick={() => handleTagClick(tag.tags_id.id, true)}
+                  className="rounded bg-slate-800 hover:bg-slate-600 p-1.5 text-xs text-white"
+                >
+                  {tag.tags_id.name}
+                </button>
+              </div>
+            ))}
       </div>
       {/* Afficher l'extrait de l'article */}
       <p className="text-slate-600 text-sm my-2">{article.excerpt}</p>

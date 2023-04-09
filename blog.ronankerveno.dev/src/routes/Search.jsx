@@ -9,7 +9,7 @@ export default function Search() {
   // On initialise l'état (state) des articles
   const [articles, setArticles] = useState([]);
 
-  // Fonction de récupération de données lors du montage du composant ou lorsque la valeur de 'query' change
+  // On récupère les données lors du montage du composant ou lorsque la valeur de 'query' change
   useEffect(() => {
     async function fetchData() {
       // On décode le paramètre 'query' pour obtenir la chaîne de recherche

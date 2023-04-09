@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
+import { scrollToTop } from "../utils/ScrollToTop"
 import ArticleView from "../components/ArticleView";
-import Aside from "../components/Aside";
+import AsideLayout from "../layouts/Aside";
 
 export default function Article() {
   // On se sert du hook useParams pour récupérer le slug de l'article à partir de l'URL
@@ -13,10 +14,6 @@ export default function Article() {
 
   // On déclare l'état (state) pour l'article, les derniers articles et les tags
   const [article, setArticle] = useState(null);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [article]); 
 
   // On récupère l'article correspondant au slug depuis l'API
   useEffect(() => {
@@ -38,17 +35,19 @@ export default function Article() {
       }
     }
 
-    fetchData(); // Récupération des données de lartcile visé
+    fetchData(); // Récupération des données de l'article visé
   }, [navigate, slug]);
 
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-center gap-16">
-      <section className="px-0 lg:w-2/3 xl:px-9 py-4">
+    <AsideLayout>
+      {/* <section className="px-0 lg:w-2/3 xl:px-9 lg:py-4"> */}
+      <section className="lg:w-2/3 lg:px-9">
         {article && (
           <ArticleView
             key={article.id}
             article={article}
             onTagClick={(tagId) => {
+              scrollToTop();
               navigate('/', {
                 state: { selectedTagId: tagId },
               });
@@ -56,8 +55,7 @@ export default function Article() {
           />
         )}
       </section>
-      <Aside />
-    </div>
+    </AsideLayout>
   );
 }
 
