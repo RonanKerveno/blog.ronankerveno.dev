@@ -41,7 +41,7 @@ export default function Article() {
   return (
     <AsideLayout>
       {/* <section className="px-0 lg:w-2/3 xl:px-9 lg:py-4"> */}
-      <section className="lg:w-2/3 lg:px-9">
+      <section className="lg:w-2/3 lg:px-9 mb-4">
         {article && (
           <ArticleView
             key={article.id}

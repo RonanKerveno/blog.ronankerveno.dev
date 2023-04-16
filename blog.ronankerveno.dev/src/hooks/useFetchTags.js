@@ -1,5 +1,3 @@
-// Hook personnalisé pour la recherche des tags.
-
 import { useState, useEffect } from 'react';
 import { directus } from '../services/directus';
 
@@ -11,10 +9,14 @@ export function useFetchTags() {
     async function fetchTags() {
       const query = {
         fields: ['*', 'tags_id.*'],
-        sort: 'name',
       };
       const response = await directus.items('tags').readByQuery(query);
-      setTags(response.data);
+      const sortedTags = response.data.sort((a, b) => {
+        // Comparaison insensible à la casse avec localeCompare
+        return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+      });
+
+      setTags(sortedTags);
     }
 
     fetchTags();

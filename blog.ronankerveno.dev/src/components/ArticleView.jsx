@@ -40,7 +40,7 @@ export default function ArticleView({ article, onTagClick }) {
       {/* Affichez le contenu de l'article avec le composant Markdown */}
       <Markdown
         markdown={{ content: article.content }}
-        className="max-w-none prose prose-pre:p-0 prose-pre:bg-[#111B27]"
+        className="max-w-none prose prose-pre:p-0 prose-pre:bg-[#111B27] prose-img:m-auto"
       />
     </article>
   );

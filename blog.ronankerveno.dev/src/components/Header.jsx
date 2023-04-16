@@ -98,7 +98,7 @@ export default function Header() {
         {/* Champ de recherche, masqué par défaut */}
         <form
           onSubmit={handleSearchSubmit}
-          className={`transition-all ease-in-out ${searchVisible ? "h-auto py-3 mt-3" : "h-0 py-0 mt-0"
+          className={`mb-2 transition-all ease-in-out ${searchVisible ? "h-auto py-3 mt-3" : "h-0 py-0 mt-0"
             } lg:flex items-center overflow-hidden`}
         >
           <input
@@ -106,7 +106,7 @@ export default function Header() {
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="Recherche"
-            className="w-2/3 md:w-1/2 lg:w-1/3 text-slate-800 rounded-md p-1 mb-1 ml-1"
+            className="w-2/3 md:w-1/2 lg:w-1/3 text-slate-800 rounded-md p-1 ml-1"
           />
           <button
             type="submit"

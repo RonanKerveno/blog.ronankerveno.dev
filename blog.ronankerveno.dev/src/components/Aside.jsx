@@ -34,7 +34,7 @@ export default function Aside() {
   }, []);
 
   return (
-    <aside className="lg:w-1/5 lg:flex-shrink-0">
+    <aside className="lg:w-[26%] xl:w-[23%] lg:flex-shrink-0">
       <section className="mb-10 lg:mt-4 bg-slate-100 p-2 rounded-lg">
         <div className="flex gap-4 mb-2 border-b-2 pb-2">
           <img src={authorPic} alt="RK" className="h-16 rounded-xl" />
@@ -94,7 +94,7 @@ export default function Aside() {
                 <img
                   src={`${config.ASSETS_URL}/${latestArticle.thumbnail}`}
                   alt="Description"
-                  className='rounded-lg mb-2 w-1/2 h-auto transform transition-transform duration-300 hover:scale-105'
+                  className='rounded-lg mb-2 w-1/2 transform transition-transform duration-300 hover:scale-105'
                 />
                 {/* Titre de l'article */}
                 <div
