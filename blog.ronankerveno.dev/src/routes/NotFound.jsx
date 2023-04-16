@@ -12,15 +12,15 @@ export default function NotFound() {
       <section className="lg:w-2/3 mt-5">
         <h1 className="text-4xl font-bold mb-7">Page introuvable</h1>
         <p className="font-medium text-lg mb-4">
-          Oops ! Il semble que la page que vous cherchez n'existe pas ou a été déplacée.
+          Oups ! Il semble que la page que vous cherchez n'existe pas ou a été déplacée.
         </p>
-        <p className="mb-14">
+        <p className="mb-24">
           Vous pouvez revenir à la page d'accueil ou lancer une recherche.
         </p>
         <img
           src={logo404}
           alt="Erreur 404"
-          className="w-40 animate-bounce cursor-pointer"
+          className="animate-bounce cursor-pointer"
           onClick={() => {
             scrollToTop();
             navigate('/', { state: { fromHome: true }, });
