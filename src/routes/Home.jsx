@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { useFetchTags } from "../hooks/useFetchTags";
+import { Helmet } from 'react-helmet';
+import defaultTitle from "../utils/defaultTitle";
 import ArticlePreview from "../components/ArticlePreview";
 import IntroBanner from "../components/IntroBanner";
 import TagFilter from "../components/TagFilter";
@@ -122,6 +124,9 @@ export default function Home() {
   // Rendu de Home
   return (
     <>
+      <Helmet>
+        <title>{defaultTitle}</title>
+      </Helmet>
       {/* Composant pour afficher la bannière d'introduction */}
       <IntroBanner />
       <section>
@@ -147,7 +152,13 @@ export default function Home() {
               <>
                 Filtre actif sur{' '}
                 <span className="font-bold">{tagNb}</span>{' '}
-                {tagNb === 1 ? 'tag' : 'tags'}
+                {tagNb === 1 ? 'tag' : 'tags'}{' '}
+                <button
+                  className="bg-slate-800 text-sm text-slate-100 py-1 px-3 rounded"
+                  onClick={() => setSelectedTags([])}
+                >
+                  Réinitialiser
+                </button>
               </>
             )}
           </div>

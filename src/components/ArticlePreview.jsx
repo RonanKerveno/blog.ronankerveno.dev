@@ -21,7 +21,7 @@ export default function ArticlePreview({ article, handleTagClick }) {
         onClick={handleScrollToTop}
       >
         {/* Thumbnail de l'article */}
-        <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className="rounded-lg mb-2" />
+        <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className="rounded-lg mb-2 transform transition-transform duration-500 ease-in-out hover:scale-105" />
         {/* Titre de l'article */}
         <h2 className="text-xl font-semibold mb-2 hover:text-slate-600">{article.title}</h2>
       </Link>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { scrollToTop } from "../utils/ScrollToTop"
+import { scrollToTop } from "../utils/scrollToTop"
 import logoReact from "../assets/react-logo.svg";
 import logoDirectus from "../assets/directus-logo.svg";
 

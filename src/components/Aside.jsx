@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
 import { Link } from 'react-router-dom';
 import { useFetchTags } from "../hooks/useFetchTags";
-import { scrollToTop } from "../utils/ScrollToTop"
+import { scrollToTop } from "../utils/scrollToTop"
 import config from '../config';
 import authorPic from "../assets/RK.jpg";
 import { FaGithub } from 'react-icons/fa';

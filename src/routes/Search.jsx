@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { directus } from "../services/directus";
+import { Helmet } from 'react-helmet';
 import ArticlePreview from "../components/ArticlePreview";
 
 export default function Search() {
@@ -43,20 +44,24 @@ export default function Search() {
 
   // Rendu de la page de recherche, on utilise le composant ArticlePreview pour afficher les articles trouvés.
   return (
-    <div className="mt-5">
-      <h2 className="text-2xl font-bold mb-5">Résultats de recherche pour : {decodeURIComponent(query)}</h2>
-      <div className="grid grid-cols-3 gap-5">
-        {articles.length > 0 ? (
-          articles.map((article) => (
-            <ArticlePreview key={article.id} article={article} />
-          ))
-        ) : (
-          <div className="col-span-3">
-            <p>Aucun résultat trouvé pour : {decodeURIComponent(query)}</p>
-          </div>
-        )}
+    <>
+      <Helmet>
+        <title>Résultats de recherche</title>
+      </Helmet>
+      <div className="mt-5">
+        <h2 className="text-2xl font-bold mb-5">Résultats de recherche pour : {decodeURIComponent(query)}</h2>
+        <div className="grid grid-cols-3 gap-5">
+          {articles.length > 0 ? (
+            articles.map((article) => (
+              <ArticlePreview key={article.id} article={article} />
+            ))
+          ) : (
+            <div className="col-span-3">
+              <p>Aucun résultat trouvé pour : {decodeURIComponent(query)}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-
+    </>
   );
 }

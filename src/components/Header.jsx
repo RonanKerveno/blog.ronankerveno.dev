@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { scrollToTop } from "../utils/ScrollToTop"
+import { scrollToTop } from "../utils/scrollToTop"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Hamburger from 'hamburger-react'
 import logo from "../assets/logo.svg";

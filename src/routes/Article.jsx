@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
-import { scrollToTop } from "../utils/ScrollToTop"
+import { scrollToTop } from "../utils/scrollToTop"
+import { Helmet } from 'react-helmet';
+import defaultTitle from "../utils/defaultTitle";
 import ArticleView from "../components/ArticleView";
 import AsideLayout from "../layouts/Aside";
 
@@ -39,23 +41,30 @@ export default function Article() {
   }, [navigate, slug]);
 
   return (
-    <AsideLayout>
-      {/* <section className="px-0 lg:w-2/3 xl:px-9 lg:py-4"> */}
-      <section className="lg:w-2/3 lg:px-9 mb-4">
-        {article && (
-          <ArticleView
-            key={article.id}
-            article={article}
-            onTagClick={(tagId) => {
-              scrollToTop();
-              navigate('/', {
-                state: { selectedTagId: tagId },
-              });
-            }}
-          />
-        )}
-      </section>
-    </AsideLayout>
+    <>
+      <Helmet>
+        <title>{article ? article.title : defaultTitle}</title>
+      </Helmet>
+      <AsideLayout>
+        {/* <section className="px-0 lg:w-2/3 xl:px-9 lg:py-4"> */}
+        <section className="lg:w-2/3 lg:px-9 mb-4">
+          {article && (
+            <>
+              <ArticleView
+                key={article.id}
+                article={article}
+                onTagClick={(tagId) => {
+                  scrollToTop();
+                  navigate('/', {
+                    state: { selectedTagId: tagId },
+                  });
+                }}
+              />
+            </>
+          )}
+        </section>
+      </AsideLayout>
+    </>
   );
 }
 
