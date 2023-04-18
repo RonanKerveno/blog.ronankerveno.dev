@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { scrollToTop } from "../utils/scrollToTop"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
@@ -14,6 +14,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   // On défini le Hook pour naviguer vers la page de recherche
   const navigate = useNavigate();
+  // On défini la référence au champ de recherche
+  const searchInputRef = useRef();
+
 
   // Gestion de la recherche soumise par le form.
   const handleSearchSubmit = (e) => {
@@ -38,6 +41,16 @@ export default function Header() {
     setSearchVisible(false);
     setMenuOpen(false);
     scrollToTop();
+  };
+
+  // Clic sur la loupe
+  const handleSearchClick = () => {
+    setSearchVisible(!searchVisible);
+    setMenuOpen(!menuOpen)
+    // Focus sur champ de recherche pour pouvoir saisir directement.
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
   };
 
   // Rendu du header
@@ -76,7 +89,7 @@ export default function Header() {
               >
                 Contact
               </Link>
-              <button onClick={() => { setSearchVisible(!searchVisible); setMenuOpen(!menuOpen); }}>
+              <button onClick={handleSearchClick}>
                 <MagnifyingGlassIcon className="h-5 w-5 hover:text-slate-300" />
               </button>
             </div>
@@ -102,6 +115,7 @@ export default function Header() {
             } lg:flex items-center overflow-hidden`}
         >
           <input
+            ref={searchInputRef}
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
