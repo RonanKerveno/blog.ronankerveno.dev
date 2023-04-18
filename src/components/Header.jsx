@@ -25,9 +25,6 @@ export default function Header() {
     if (searchQuery.trim()) {
       // On redirige vers la page de recherche avec la valeur encodée dans l'URL
       navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
-      // On masque le champ de recherche et on ferme le menu déroulant.
-      setSearchVisible(false);
-      setMenuOpen(false);
     }
   };
 
@@ -120,7 +117,7 @@ export default function Header() {
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="Recherche"
-            className="w-2/3 md:w-1/2 lg:w-1/3 text-slate-800 rounded-md p-1 ml-1"
+            className="w-2/3 md:w-1/2 lg:w-1/3 text-slate-800 rounded-md px-1.5 py-1 ml-1"
           />
           <button
             type="submit"
