@@ -68,7 +68,7 @@ export default function Home() {
       // On filtre les articles selon les tags sélectionnés
       if (selectedTags.length > 0) {
         const filteredArticles = response.data.filter((article) => {
-          return selectedTags.every((tag) =>
+          return selectedTags.some((tag) =>
             article.tags.some((articleTag) => articleTag.tags_id.id === tag)
           );
         });
