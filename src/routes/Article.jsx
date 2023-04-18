@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
-import { scrollToTop } from "../utils/scrollToTop"
-import { Helmet } from 'react-helmet';
+import { scrollToTop } from "../utils/scrollToTop";
+import { Helmet } from 'react-helmet-async';
 import defaultTitle from "../utils/defaultTitle";
 import ArticleView from "../components/ArticleView";
 import AsideLayout from "../layouts/Aside";

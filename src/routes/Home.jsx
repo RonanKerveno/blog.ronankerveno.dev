@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { useFetchTags } from "../hooks/useFetchTags";
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import defaultTitle from "../utils/defaultTitle";
 import ArticlePreview from "../components/ArticlePreview";
 import IntroBanner from "../components/IntroBanner";

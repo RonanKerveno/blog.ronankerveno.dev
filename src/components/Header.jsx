@@ -25,6 +25,8 @@ export default function Header() {
     if (searchQuery.trim()) {
       // On redirige vers la page de recherche avec la valeur encodée dans l'URL
       navigate(`/search/${encodeURIComponent(searchQuery.trim())}`);
+      // On masque le champ de recherche et on ferme le menu déroulant.
+      handleNavClick();
     }
   };
 
