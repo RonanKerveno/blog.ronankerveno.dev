@@ -11,6 +11,7 @@ import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
 import rangeParser from 'parse-numeric-range';
+import ReactDOMServer from 'react-dom/server';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import copy from 'clipboard-copy';
 import { FiCopy } from 'react-icons/fi';
@@ -31,8 +32,10 @@ const Markdown = ({ markdown, className }) => {
   const syntaxTheme = coldarkDark;
 
    // Copier le code dans le presse-papiers
-  function handleCopyClick(code) {
-    copy(code);
+   function handleCopyClick(code) {
+    const codeString = ReactDOMServer.renderToString(code);
+    const trimmedCode = codeString.replace(/[\r\n]+$/, '');
+    copy(trimmedCode);
   }
 
   // Composants personnalisés pour ReactMarkdown
