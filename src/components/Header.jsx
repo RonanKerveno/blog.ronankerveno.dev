@@ -28,6 +28,8 @@ export default function Header() {
       // On masque le champ de recherche et on ferme le menu déroulant.
       handleNavClick();
     }
+    // On force la fermeture du clavier (utile sur mobile)
+    e.target.elements[0].blur();
   };
 
   // Gestion du changement de la valeur de la recherche (actualisation en temps réél)

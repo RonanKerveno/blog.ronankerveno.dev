@@ -64,6 +64,8 @@ export default function Search() {
     if (searchValue.trim()) {
       navigate(`/search/${encodeURIComponent(searchValue.trim())}`);
     }
+    // On force la fermeture du clavier (utile sur mobile)
+    e.target.elements[0].blur();
   };
 
   // Gestion du changement de la valeur de la recherche (actualisation en temps réél)
