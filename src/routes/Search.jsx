@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { Helmet } from 'react-helmet-async';
@@ -15,8 +15,6 @@ export default function Search() {
   const [searchValue, setSearchValue] = useState('');
 
   const navigate = useNavigate();
-
-  const searchInputRef = useRef(null);
 
   // On gère le clic sur une catégorie dans l'aperçu d'un article.
   // On va charger la page Home en passant la variable tagId.
@@ -57,9 +55,6 @@ export default function Search() {
       setSearchValue(searchQuery);
       fetchData(searchQuery);
     }
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
   }, [query]);
 
   // Gestion de la recherche soumise par le form.
@@ -89,7 +84,6 @@ export default function Search() {
           className="mb-10 flex justify-between items-center gap-1 border-2 rounded-md md:w-1/2 lg:w-1/3"
         >
           <input
-            ref={searchInputRef}
             type="text"
             value={searchValue}
             onChange={handleSearchChange}
