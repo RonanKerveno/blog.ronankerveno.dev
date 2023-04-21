@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { scrollToTop } from "../utils/scrollToTop"
 import logoReact from "../assets/react-logo.svg";
 import logoDirectus from "../assets/directus-logo.svg";
 
+// Footer
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -39,7 +39,6 @@ export default function Footer() {
           <Link
             to="/politique-confidentialite"
             className="text-white underline hover:text-slate-300"
-            onClick={scrollToTop}
           >
             Politique de confidentialité
           </Link>

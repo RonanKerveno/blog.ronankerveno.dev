@@ -1,5 +1,6 @@
 import authorPic from "../assets/RK.jpg";
 
+// Banière d'introduction du blog
 export default function IntroBanner() {
   return (
     <section

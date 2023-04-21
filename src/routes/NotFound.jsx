@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { scrollToTop } from "../utils/scrollToTop"
 import { Helmet } from 'react-helmet-async';
 import AsideLayout from "../layouts/Aside";
 import logo404 from "../assets/logo-404.svg";
@@ -27,7 +26,6 @@ export default function NotFound() {
             alt="Erreur 404"
             className="animate-bounce cursor-pointer"
             onClick={() => {
-              scrollToTop();
               navigate('/', { state: { fromHome: true }, });
             }}
           />

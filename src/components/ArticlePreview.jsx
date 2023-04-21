@@ -8,17 +8,11 @@ export default function ArticlePreview({ article, handleTagClick }) {
   // On formate la date de création de l'article en utilisant la bibliothèque moment.js
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
-  // On réinitialise le scroll verticalement quand la liste des articles est re-rendue à partir d'un lien.
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div>
+    <div className="mb-1">
       {/* On crée un lien vers la page de l'article en utilisant son slug */}
       <Link
         to={`/article/${article.slug}`}
-        onClick={handleScrollToTop}
       >
         {/* Thumbnail de l'article */}
         <img src={`${config.ASSETS_URL}/${article.thumbnail}`} alt="Description" className="rounded-lg mb-2 transform transition-transform duration-500 ease-in-out hover:scale-105" />

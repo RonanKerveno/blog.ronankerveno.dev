@@ -3,21 +3,32 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import config from '../config';
 
+// Formulaire de contact.
 export default function ContactForm() {
   const form = useRef();
+
+  // State des erreurs de formatage de l'adresse email (boolean)
   const [emailError, setEmailError] = useState(false);
+  // State gérant le statut de l'envoi du mail (success/error)
   const [formStatus, setFormStatus] = useState(null);
+  // State gérant l'acceptation de la politique de condentialité (boolean)
   const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
+  // State gérant la désactivation du bouton d'envoi (boolean)
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
-
+  // Fonction d'envoi de l'email
   const sendEmail = (e) => {
     e.preventDefault();
 
+    // reportValidity() est une méthode native de l'API Web HTML5 pour les formulaires.
+    // Si le formulaire est invalide ou si la politique de confidentialité n'est pas acceptée
+    // on quitte de la fonction. 
     if (!form.current.reportValidity() || !privacyPolicyChecked) {
       return;
     }
 
+    // On appelle la méthode emailjs pour envoyer notre email, avec les paramètres définis
+    // dans config.js
     emailjs.sendForm(
       config.EMAILJS_SERVICE_ID,
       config.EMAILJS_TEMPLATE_ID,
@@ -27,29 +38,36 @@ export default function ContactForm() {
       .then((result) => {
         console.log(result.text);
         setFormStatus('success');
-        resetForm(7000); // Ajoutez un délai de 7 secondes avant de réinitialiser le formulaire
+        // Ajout d'un délai avant de réinitialiser le formulaire
+        resetForm(7000);
       }, (error) => {
+        // Gestion des erreurs d'envoi
         console.log(error.text);
         setFormStatus('error');
       });
   };
 
+  // Gestion de l'input email, contrôle de validité.
   const handleEmailChange = (e) => {
     setEmailError(!e.target.validity.valid);
   };
 
+  // Reset du formulaire
   const resetForm = (delay = 0) => {
-    setSubmitDisabled(true); // Désactive le bouton d'envoi
-
+    // Désactivation immédiate du bouton d'envoi le temps du timeout.
+    setSubmitDisabled(true);
+    // Reset des autres états après timeout défini.
     setTimeout(() => {
       setEmailError(false);
       setFormStatus(null);
       setPrivacyPolicyChecked(false);
       form.current.reset();
-      setSubmitDisabled(false); // Réactive le bouton d'envoi
+       // Réactivation du bouton d'envoi
+      setSubmitDisabled(false);
     }, delay);
   };
 
+  // Affichage du formulaire ce contact
   return (
     <form ref={form} onSubmit={sendEmail} className="bg-slate-300 text-slate-700 p-6 lg:p-8 rounded-md">
       {formStatus === 'success' && (

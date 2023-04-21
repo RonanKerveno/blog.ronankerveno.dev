@@ -25,6 +25,7 @@ export default function ArticleView({ article, onTagClick }) {
       <div className="flex gap-1 mb-7">
         {article.tags &&
           article.tags
+            /* Classement des tags par ordre alphabétique */
             .sort((a, b) => a.tags_id.name.localeCompare(b.tags_id.name))
             .map((tag) => (
               <div key={tag.tags_id.id}>
@@ -40,6 +41,7 @@ export default function ArticleView({ article, onTagClick }) {
       {/* Affichez le contenu de l'article avec le composant Markdown */}
       <Markdown
         markdown={{ content: article.content }}
+        // La classe "prose" de Tailwind permet de définir des styles typographiques par défaut aux élements
         className="max-w-none prose prose-pre:p-0 prose-pre:bg-[#111B27] prose-img:m-auto break-words"
       />
     </article>

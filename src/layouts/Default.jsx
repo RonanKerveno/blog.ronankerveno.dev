@@ -1,7 +1,18 @@
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { scrollToTop } from "../utils/scrollToTop";
 
 export default function DefaultLayout({ children }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Quand ma location change (changement de page)
+    // Je scroll en haut de la page
+    scrollToTop();
+  }, [location]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />

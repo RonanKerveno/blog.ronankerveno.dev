@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { useFetchTags } from "../hooks/useFetchTags";
@@ -28,15 +28,15 @@ export default function Home() {
   // On déclare l'état pour déclencher le scroll
   const [scrollToArticleList, setscrollToArticleList] = useState(false);
 
-  // On crée une référence pour la barre de filtre
-  const articleListRef = useRef(null);
-
   // On scrolle vers la barre de filtrage quand un filtre est activé ou quand on clique sur un tag à partir d'un ArticlePreview
   useEffect(() => {
-    if (articleListRef.current && scrollToArticleList) {
+    if (scrollToArticleList) {
       // On ajoute un setTimeout pour que le rendu des nouveaux articles se fasse avant le scroll
       const timer = setTimeout(() => {
-        articleListRef.current.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
         setscrollToArticleList(false);
       }, 100);
 
@@ -90,7 +90,7 @@ export default function Home() {
     }
   }, [location.state?.selectedTagId, navigate]);
 
-  // On réinitialise les filtres lorsque la page est appelée depuis le lien interne.
+  // On réinitialise les filtres lorsque la page est appelée depuis un lien interne.
   useEffect(() => {
     if (location.state?.fromHome) {
       setSelectedTags([]);
@@ -130,7 +130,7 @@ export default function Home() {
       {/* Composant pour afficher la bannière d'introduction */}
       <IntroBanner />
       <section>
-        <div ref={articleListRef} className="flex justify-center items-center py-4">
+        <div className="flex justify-center items-center py-4">
           <div className="border-b border-gray-400 flex-grow mr-4"></div>
           <h1 className="font-bold text-2xl">Liste des articles</h1>
           <div className="border-b border-gray-400 flex-grow ml-4"></div>

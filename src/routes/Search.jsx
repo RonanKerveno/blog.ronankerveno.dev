@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { Helmet } from 'react-helmet-async';
-import { scrollToTop } from "../utils/scrollToTop";
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import ArticlePreview from "../components/ArticlePreview";
 
@@ -13,22 +12,22 @@ export default function Search() {
   const [articles, setArticles] = useState([]);
   // On définit l'état (state) pour stocker la valeur de la recherche
   const [searchValue, setSearchValue] = useState('');
-
+  // On utilise le hook useNavigate
   const navigate = useNavigate();
 
   // On gère le clic sur une catégorie dans l'aperçu d'un article.
   // On va charger la page Home en passant la variable tagId.
   function handleTagClick(tagId) {
-    scrollToTop();
     navigate('/', {
       state: { selectedTagId: tagId },
     });
   }
 
+  // Recherche des articles dans l'API
   useEffect(() => {
     async function fetchData(searchQuery) {
 
-      // On lance la recherche sur l'API (Note : _icontains permet d'ignorer la casse)
+      // On lance la recherche (Note : _icontains permet d'ignorer la casse)
       const response = await directus.items("articles").readByQuery({
         fields: [
           "*",

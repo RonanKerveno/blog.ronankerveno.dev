@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import './styles/index.css';
-
 import DefaultLayout from "./layouts/Default";
 import Home from "./routes/Home";
 import Article from "./routes/Article";

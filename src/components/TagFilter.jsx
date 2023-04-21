@@ -1,4 +1,5 @@
 
+// Barre des tags.
 export default function TagFilter({ tags, selectedTags, onTagClick }) {
   return (
     <div className="flex flex-wrap justify-center gap-2 mb-6">

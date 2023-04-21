@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
-import { scrollToTop } from "../utils/scrollToTop";
 import { Helmet } from 'react-helmet-async';
 import defaultTitle from "../utils/defaultTitle";
 import ArticleView from "../components/ArticleView";
@@ -12,6 +11,7 @@ import AsideLayout from "../layouts/Aside";
 export default function Article() {
   // On se sert du hook useParams pour récupérer le slug de l'article à partir de l'URL
   const { slug } = useParams();
+  // On utilise le hook useNavigate
   const navigate = useNavigate();
 
   // On déclare l'état (state) pour l'article, les derniers articles et les tags
@@ -42,6 +42,7 @@ export default function Article() {
 
   return (
     <>
+      {/* Titre de page dynamique */}
       <Helmet>
         <title>{article ? article.title : defaultTitle}</title>
       </Helmet>
@@ -54,7 +55,6 @@ export default function Article() {
                 key={article.id}
                 article={article}
                 onTagClick={(tagId) => {
-                  scrollToTop();
                   navigate('/', {
                     state: { selectedTagId: tagId },
                   });
