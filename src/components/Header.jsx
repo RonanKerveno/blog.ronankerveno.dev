@@ -4,6 +4,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Hamburger from 'hamburger-react'
 import logo from "../assets/logo.svg";
 
+// Header
 export default function Header() {
   // On définit l'état (state) pour stocker la valeur de la recherche
   const [searchQuery, setSearchQuery] = useState('');

@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet-async';
 
 export default function PrivacyPolicy() {
 
+  // Page Politique de confidentialité
   return (
     <>
+      {/* Titre de page */}
       <Helmet>
         <title>Politique de confidentialité</title>
       </Helmet>

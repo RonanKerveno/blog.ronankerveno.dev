@@ -4,11 +4,13 @@ import AsideLayout from "../layouts/Aside";
 import logo404 from "../assets/logo-404.svg";
 
 export default function NotFound() {
+  // On utilise le Hook UseNavigate
   const navigate = useNavigate();
 
-  // Affichage de la page 404
+  // Page 404
   return (
     <>
+      {/* Titre de page */}
       <Helmet>
         <title>Page non trouvée</title>
       </Helmet>
@@ -21,6 +23,7 @@ export default function NotFound() {
           <p className="mb-24">
             Vous pouvez revenir à la page d'accueil ou lancer une recherche.
           </p>
+          {/* Icône animée */}
           <img
             src={logo404}
             alt="Erreur 404"

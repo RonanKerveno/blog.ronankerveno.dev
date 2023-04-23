@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { scrollToTop } from "../utils/scrollToTop";
 
+// Rendu de la structure générale du site
 export default function DefaultLayout({ children }) {
   const location = useLocation();
 

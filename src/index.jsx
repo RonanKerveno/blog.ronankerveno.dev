@@ -11,6 +11,7 @@ import Search from "./routes/Search";
 import Contact from "./routes/Contact";
 import PrivacyPolicy from "./routes/privacyPolicy";
 
+// Structure et routage du site
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

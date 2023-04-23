@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import ArticlePreview from "../components/ArticlePreview";
 
+// Page des résultats de Recherche
 export default function Search() {
   // On récupère le paramètre 'query' de l'URL
   const { query } = useParams();
@@ -80,6 +81,7 @@ export default function Search() {
       </Helmet>
       <div>
         <h2 className="text-2xl font-bold mb-5">Résultats de recherche</h2>
+        {/* Ajout d'un champ de recherche intégré à la page pour plus d'ergonomie */}
         <form
           onSubmit={handleSearchSubmit}
           className="mb-10 flex justify-between items-center gap-1 border-2 rounded-md md:w-1/2 lg:w-1/3"
@@ -98,6 +100,7 @@ export default function Search() {
             <MagnifyingGlassIcon className="h-5 w-5" />
           </button>
         </form>
+        {/* Affichage des résultats (previews d'articles) */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.length > 0 ? (
             articles.map((article) => (

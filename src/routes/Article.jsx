@@ -1,5 +1,3 @@
-// Page Article gérant l'affichage de l'article séléctionné.
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { directus } from '../services/directus';
@@ -8,6 +6,7 @@ import defaultTitle from "../utils/defaultTitle";
 import ArticleView from "../components/ArticleView";
 import AsideLayout from "../layouts/Aside";
 
+// Page Article gérant l'affichage de l'article séléctionné.
 export default function Article() {
   // On se sert du hook useParams pour récupérer le slug de l'article à partir de l'URL
   const { slug } = useParams();
@@ -37,7 +36,8 @@ export default function Article() {
       }
     }
 
-    fetchData(); // Récupération des données de l'article visé
+    // Récupération des données de l'article visé
+    fetchData();
   }, [navigate, slug]);
 
   return (
@@ -47,7 +47,6 @@ export default function Article() {
         <title>{article ? article.title : defaultTitle}</title>
       </Helmet>
       <AsideLayout>
-        {/* <section className="px-0 lg:w-2/3 xl:px-9 lg:py-4"> */}
         <section className="lg:w-2/3 lg:px-9 mb-4">
           {article && (
             <>

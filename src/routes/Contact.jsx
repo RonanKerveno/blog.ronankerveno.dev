@@ -2,10 +2,12 @@ import ContactForm from '../components/ContactForm';
 import AsideLayout from "../layouts/Aside";
 import { Helmet } from 'react-helmet-async';
 
+// Page contact
 export default function Contact() {
 
   return (
     <>
+      {/* Titre de page */}
       <Helmet>
         <title>Contact</title>
       </Helmet>

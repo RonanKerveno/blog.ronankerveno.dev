@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { directus } from "../services/directus";
 import { useFetchTags } from "../hooks/useFetchTags";
@@ -8,10 +8,13 @@ import ArticlePreview from "../components/ArticlePreview";
 import IntroBanner from "../components/IntroBanner";
 import TagFilter from "../components/TagFilter";
 
+// Page Home
 export default function Home() {
   // On utilise les hooks de react-router-dom pour récupérer la location et la fonction de navigation
   const location = useLocation();
   const navigate = useNavigate();
+  // On crée une référence pour la barre de filtre
+  const articleListRef = useRef(null);
 
   // On cherche un éventuel tag initial depuis le state de la location
   const initialTagId = location.state?.selectedTagId;
@@ -29,14 +32,12 @@ export default function Home() {
   const [scrollToArticleList, setscrollToArticleList] = useState(false);
 
   // On scrolle vers la barre de filtrage quand un filtre est activé ou quand on clique sur un tag à partir d'un ArticlePreview
+  // Le scroll remonte jusqu'à la balise articleListRef.
   useEffect(() => {
-    if (scrollToArticleList) {
+    if (articleListRef.current && scrollToArticleList) {
       // On ajoute un setTimeout pour que le rendu des nouveaux articles se fasse avant le scroll
       const timer = setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+        articleListRef.current.scrollIntoView({ behavior: "smooth" })
         setscrollToArticleList(false);
       }, 100);
 
@@ -129,7 +130,7 @@ export default function Home() {
       </Helmet>
       {/* Composant pour afficher la bannière d'introduction */}
       <IntroBanner />
-      <section>
+      <section ref={articleListRef}>
         <div className="flex justify-center items-center py-4">
           <div className="border-b border-gray-400 flex-grow mr-4"></div>
           <h1 className="font-bold text-2xl">Liste des articles</h1>

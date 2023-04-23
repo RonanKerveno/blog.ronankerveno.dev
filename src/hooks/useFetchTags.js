@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { directus } from '../services/directus';
 
+// Fonction de requête des tags
 export function useFetchTags() {
   const [tags, setTags] = useState([]);
 
