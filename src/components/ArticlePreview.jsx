@@ -9,7 +9,7 @@ export default function ArticlePreview({ article, handleTagClick }) {
   const createdDate = moment(article.date_created).format('DD MMMM YYYY');
 
   return (
-    <div className="mb-1">
+    <div>
       {/* On crée un lien vers la page de l'article en utilisant son slug */}
       <Link
         to={`/article/${article.slug}`}
