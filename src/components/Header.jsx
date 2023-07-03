@@ -122,7 +122,7 @@ export default function Header() {
         {/* Champ de recherche, masqué par défaut */}
         <form
           onSubmit={handleSearchSubmit}
-          className={`mb-2 transition-all ease-in-out ${searchVisible ? "h-auto py-3 mt-3" : "h-0 py-0 mt-0"
+          className={`transition-all ease-in-out ${searchVisible ? "h-auto py-3 mt-3 mb-2" : "h-0 py-0 mt-0 mb-0"
             } lg:flex items-center overflow-hidden`}
         >
           <input
